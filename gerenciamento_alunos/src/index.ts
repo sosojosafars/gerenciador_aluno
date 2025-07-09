@@ -17,9 +17,15 @@ async function main() {
       alunoManager.listarAlunos();
     } else if (escolha === 'Sair') {
       console.log('Saindo do gerenciador de alunos. Até mais!');
-      break;
+    }else if (escolha === 'Editar Aluno') {
+      const alunoParaEditar = await promptParaDetalhesDoAluno();
+      alunoManager.editarAluno(alunoParaEditar);
+    } else if (escolha === 'Deletar Aluno') {
+      const alunoParaDeletar = await promptParaDetalhesDoAluno();
+      await alunoManager.deletarAluno(alunoParaDeletar.matricula.toString());
+    break;
+    } 
     }
   }
-}
 
 main();

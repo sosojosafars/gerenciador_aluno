@@ -3,8 +3,7 @@ import { IAluno } from '../interfaces/IAluno';
 import { AlunoManager } from '../managers/AlunoManager';
 
 export async function promptParaDetalhesDoAluno(): Promise<IAluno> {
-    
-  const p = await inquirer.prompt([
+  return await inquirer.prompt([
         {
             type: 'input',
             name: 'nome',
@@ -21,19 +20,7 @@ export async function promptParaDetalhesDoAluno(): Promise<IAluno> {
             message: 'Qual é a sua matricula?',
             validate: input => input.trim() !== '' ? true : 'A matrícula não pode ser vazia'
           },
-          {
-            type: 'confirm',
-            name: 'confirmar',
-            message: 'Tem certeza?',
-            default: true,
-          },
-
     ]);
-    return {
-      nome: p.nome,
-      idade: p.idade,
-      matricula: p.matricula,  
-    };
 }
 
 export async function promptMenuPrincipal(): Promise<string> {
@@ -42,7 +29,7 @@ export async function promptMenuPrincipal(): Promise<string> {
       type: 'list',
       name: 'menu',
       message: 'O que você gostaria de fazer?',
-      choices: ['Adicionar Aluno', 'Listar Alunos', 'Sair'],
+      choices: ['Adicionar Aluno', 'Listar Alunos', 'Editar Aluno', 'Deletar Aluno', 'Sair'],
     },
   ]);
 

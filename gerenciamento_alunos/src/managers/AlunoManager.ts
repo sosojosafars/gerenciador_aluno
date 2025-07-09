@@ -44,6 +44,54 @@ adicionarAluno(novoAluno: IAluno): void {
         console.log(`Aluno '${novoAluno.nome}' cadastrado com sucesso!`);
   }
 
+  public editarAluno(AlunoBuscar: IAluno): void {
+        const dbFile = path.join(__dirname, '../../database/alunos.json');
+    
+        if (!fs.existsSync(dbFile)) {
+            throw new Error("O banco de dados de alunos não existe.");
+        }
+        let alunosDoBanco: IAluno[] = [];
+        try {
+            const conteudoDoArquivo = fs.readFileSync(dbFile, "utf-8");
+            alunosDoBanco = JSON.parse(conteudoDoArquivo); 
+        } catch (erro: any) {
+            if (erro.code !== "ENOENT") {
+                throw erro;
+            }
+        }
+    
+        const index = alunosDoBanco.findIndex(
+            (perfil) => perfil.nome.toLowerCase() === AlunoBuscar.nome.toLowerCase()
+        );
+    
+        if (index === -1) {
+            throw new Error(`O aluno ${AlunoBuscar.nome} não foi encontrado para edição.`);
+        }
+    
+        alunosDoBanco[index] = AlunoBuscar;
+    
+        const novoConteudo = JSON.stringify(alunosDoBanco, null, 2);
+        fs.writeFileSync(dbFile, novoConteudo, "utf-8");
+        console.log(`O aluno ${AlunoBuscar.nome} foi editado com sucesso!`);
+
+    }
+
+ public async deletarAluno(matricula: string): Promise<void> {
+  const quantidadeAntes = this.alunos.length;
+
+  this.alunos = this.alunos.filter((aluno) => aluno.matricula !== matricula);
+
+  const quantidadeDepois = this.alunos.length;
+
+  if (quantidadeDepois === quantidadeAntes) {
+    console.log(`Nenhum aluno com a matrícula "${matricula}" foi encontrado.`);
+  } else {
+    await this.salvarAlunosNoArquivo();
+    console.log(` Aluno com matrícula "${matricula}" foi removido com sucesso.`);
+  }
+}
+
+
 
 public listarAlunos(): void {
   if (this.alunos.length === 0) {
