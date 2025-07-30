@@ -1,0 +1,24 @@
+[
+    [
+      {
+        "id": "1",
+        "nome": "Supermercado Prata",
+        "data": "22/01/2019",
+        "local": "Rua Uruguai",
+        "capacidadeMaxima": 300,
+        "participantesAtuais": 50,
+        "status": "Agendado",
+        "eventos": []
+      },
+      {
+        "id": "2",
+        "nome": "Buffet Souza",
+        "data": "02/11/2007",
+        "local": "Rua Flávio Dos Santos",
+        "capacidadeMaxima": 500,
+        "participantesAtuais": 300,
+        "status": "Cancelado",
+        "eventos": []
+      }
+    ]
+]
